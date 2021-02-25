@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<header>
+	<h1>home</h1>
+	<a href="{% url 'reply' tweet_id %}"> <button type="button" class="header-button">Reply</button>
+	</a>
+</header>
+			<!-- Sample Tweet 1 -->
+			{% if not all_replies %}
+			     <h4>No Comments present.</h4>
+			{% else %}
+                {% for tweet in all_replies %}
+                
+                    <div class="tweet">
+                        <div class="tweet-icon">
+                              <img src="{% static 'images/post-default-icon.svg' %}" />
+                        </div>
+                        <div class="tweet-content">
+                            <div class="tweet-name-area">
+                                <span class="tweet-name">{{tweet.name}}</span>
+                                <span class="tweet-created-at">{{tweet.create_at}}</span>
+                            </div>
+                            <p>
+                                {{tweet.text}}
+                            </p>
+                            
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}   
+
+	
+
+{% endblock %}

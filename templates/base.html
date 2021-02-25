@@ -1,0 +1,21 @@
+{% load static %}
+
+<!-- <!DOCTYPE html> -->
+<!-- <html lang="en"> -->
+<head>
+    <!-- <meta charset="UTF-8"> -->
+    <link rel="stylesheet" href="{% static 'tweets/styles.css' %}" />
+    <title>Twitter</title>
+	<meta name=”viewport” content=”width=device-width, initial-scale=1”>
+</head>
+<body>
+
+ <div class="content">
+
+   {% block content %}  {% endblock %}
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   <script type="text/javascript" href="{% static 'tweets/twitter.js' %}"></script> 
+
+</body>
+</html>

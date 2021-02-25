@@ -1,0 +1,44 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<form action="{% url 'replySave' tweet_id %}" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<header>
+	   <a href="{% url 'home' %}"> <img class="header-back" src="{% static 'images/back.svg' %}"></a>
+	   <h1>Home</h1>
+	   <button type="submit" class="header-button">Reply</button>
+    </header>	
+	<div class="reply-form" style="height: 400px; "> 
+		<style>
+			.reply-form{
+				border-bottom: rgb(153, 153, 153) 1px solid;
+			}
+		</style>
+
+	  
+		<main>
+		  <div class="tweet-form">
+			<div class="tweet-form-icon">
+			  <img src="{% static 'images/post-default-icon.svg' %}" />
+			</div>
+	
+			<div class="tweet-form-content">
+			  
+			  <input class="tweet-name" type="text" placeholder="Your post name" name="name"/>
+	
+			  <textarea class="tweet-textarea" name="text" placeholder="Whats happenning?" rows="3" cols="100"></textarea>
+	
+			</div>
+		  </div>
+		</main>
+	    
+
+	</div>
+</form> 
+
+
+{% endblock %}
