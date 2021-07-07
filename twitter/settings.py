@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
-import django_heroku 
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'wd^u%+lp6z61a*9)qdaw2w2@f)5bhuh&^)o)te11!jjpn70l1n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://twitter-abdelhak.herokuapp.com/', '127.0.0.1']
 
 
 # Application definition
