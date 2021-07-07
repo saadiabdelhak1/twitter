@@ -27,7 +27,7 @@ SECRET_KEY = 'wd^u%+lp6z61a*9)qdaw2w2@f)5bhuh&^)o)te11!jjpn70l1n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://twitter-abdelhak.herokuapp.com/' ]
+ALLOWED_HOSTS = ['twitter-abdelhak.herokuapp.com', '127.0.0.1' ]
 
 
 # Application definition
