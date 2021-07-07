@@ -17,8 +17,11 @@
                 
                     <div class="tweet">
                         <div class="tweet-icon">
-                              <img src="{% static 'images/post-default-icon.svg' %}" />
+                            <img src="{% static 'images/post-default-icon.svg' %}" />
                         </div>
+                        {% if tweet.image_path is not None %}
+							<img class="tweet-image" src = "{% static tweet.image_path %}"/>
+						{% endif %}	
                         <div class="tweet-content">
                             <div class="tweet-name-area">
                                 <span class="tweet-name">{{tweet.name}}</span>
