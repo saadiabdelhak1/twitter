@@ -28,17 +28,16 @@
 							{{tweet.text}}
 						</p>
 						{% if tweet.image_path is not None %}
-							<img class="tweet-image" src = "{% static tweet.image_path %}"/>
+						<a href="{% url 'post-details' tweet.id %}"><img class="tweet-image" src = "{% static tweet.image_path %}"/></a>
 						{% endif %}		  
 						<div class="tweet-buttons">
-							<a href="{% url 'post-details' tweet.id %}"><img class="tweet-reply" src="{% static 'images/comment.svg' %}" /></a>
+							<a href="{% url 'reply' tweet.id %}"><img class="tweet-reply" src="{% static 'images/comment.svg' %}" /></a>
 							<div class="tweet-reply-count">
 								
 								{{tweet.count}}
 							
 							</div>
-							<img class="tweet-like" src="{% static 'images/heart.svg' %}" />
-							<div class="tweet-like-count">22</div>
+							
 						</div>
 						</div>
 					</div>

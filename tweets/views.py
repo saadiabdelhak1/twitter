@@ -68,12 +68,14 @@ def postTweetSave(request):
 
 
 def postDetails(request, tweet_id):
-
+    
+    all_tweets = tw_tweet.objects.filter(id=tweet_id)
     all_replies = tw_tweet.objects.filter(parent_tweet_id=tweet_id)
 
     context = {
         "all_replies": all_replies,
-        "tweet_id": tweet_id
+        "tweet_id": tweet_id,
+        "all_tweets": all_tweets
     }
 
     return render(request, 'post-details.html', context)
