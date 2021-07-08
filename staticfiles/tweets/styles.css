@@ -6,7 +6,6 @@ body {
     padding: 0;
 	table-layout: fixed;
     word-wrap: break-word;
-
 }
 
 .content {
@@ -76,9 +75,6 @@ header h1 {
     	margin-right: 30px;
     	margin-top: 5px;
 	}
-.image-upload>input {
-  display: none;
-}
 
 	header button.header-button {
 	    background: #1ca1f2;
@@ -134,36 +130,28 @@ main {
 	width: 100%;
 }
 
-@media only screen and (min-width: 1000px) {
-	.post-tweet-button img {
-		width: 33%;
-		right: 14%;
+@media (min-width: 1000px) {
+	.post-tweet-button {
+		width: 7%;
+		right: 23%;
 	}
 }
 
-@media only screen and (max-width: 500px) {
+@media (max-width: 500px) {
 	.post-tweet-button {
+		width: 15%;
 		right: 0;
 	}
-	.post-tweet-button img {
-	width: 100%;
-	}
 }
 
+
 /***** EACH TWEET DESIGN **********/
-a:link {
-    text-decoration: none;
-    color: black;
-}
-a:hover {
-    color: blue;
-}
 
 .tweet {
 	display: flex;
-	padding: 2rem 0;
+	justify-content: center;
+	padding: 1rem 0;
 	border-bottom: 1px solid #ccc;
-    width: 100vw;
 }
 
 .tweet-icon {
@@ -189,13 +177,9 @@ a:hover {
 }
 
 .tweet-content p {
-	font-size: 1.93rem;
+	font-size: 0.93rem;
 	padding: 0 0.3rem 0.2rem 0;
 	color: #353535;
-}
-
-.tweet-name {
-	font-size: 40px;
 }
 
 .tweet-image {
@@ -214,6 +198,7 @@ a:hover {
 	float: left;
 	width: 6%;
 }
+
 
 .tweet-reply-count {
 	float: left;
