@@ -430,9 +430,9 @@ main {
 
 .options{
     background-color: white;
-    height: 700px;
-    width: 23%; 
-	z-index: -1; 
+    height: 500px;
+    width: 15%; 
+	z-index: 2; 
 }
 
 @media (min-width: 1200px){
@@ -442,7 +442,7 @@ main {
 }
 
 @media (min-width: 900px){
-	.options{
-		display: none;
+	.commands{
+		visibility: hidden;
 	}
 }
