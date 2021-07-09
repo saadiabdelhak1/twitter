@@ -50,9 +50,6 @@
 
     <!-----------------replies------------------->
 
-    {% if not all_replies %}
-            <h4>No Comments present.</h4>
-    {% else %}
         {% for tweet in all_replies %}
         
             <div class="tweet">
@@ -71,8 +68,7 @@
                     
                 </div>
             </div>
-        {% endfor %}
-    {% endif %}   
+        {% endfor %}  
 <body>
 	
 
