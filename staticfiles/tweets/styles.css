@@ -404,7 +404,7 @@ main {
 }
 
 .link-wrapper a{
-	position: absolute;
+	position: relative;
 	display: flex;
 	justify-content: start;
 	color: black;
@@ -432,17 +432,20 @@ main {
     background-color: white;
     height: 500px;
     width: 15%; 
-	z-index: 2; 
+	z-index: -1; 
 }
 
-@media (min-width: 1200px){
+@media (min-width: 1000px){
 	.link-wrapper a{ 
 		font-size: 20px;	
 	}
 }
 
 @media (min-width: 900px){
-	.commands{
-		visibility: hidden;
+	.options{
+		display: none;
+	}
+	.link-wrapper a{ 
+		font-size: 10px;	
 	}
 }
