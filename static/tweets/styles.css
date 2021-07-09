@@ -406,11 +406,11 @@ main {
 .link-wrapper a{
 	position: absolute;
 	display: flex;
-	justify-content: start;
 	color: black;
 	text-decoration: none;
 	font-weight: bold; 
 	font-size: 30px;
+	float: right;
 	
 }
 .link-wrapper img {
@@ -430,39 +430,22 @@ main {
 
 .options{
     background-color: white;
-    height: 500px;
-    width: 10%; 
+    height: 200px;
+    width: 5%; 
 	position: absolute; 
 	position: fixed;
+	display: block;
+	padding-left: 10%;
+	
 }
 
-@media (max-width: 1300px){
-	.link-wrapper a{ 
-		font-size: 22px;	
-	}
-	.link-wrapper img {
-		height: 25px; 
-		padding-right: 19px; 
-	}
-}
-@media (max-width: 1200px){
-	.link-wrapper a{ 
-		font-size: 19px;	
-	}
-	.link-wrapper img {
-		height: 20px; 
-		padding-right: 16px; 
-	}
-}
 @media (max-width: 1100px){
-	.link-wrapper a{ 
-		font-size: 17px;	
+	.options{
+		padding-left: 6%;
 	}
 }
 @media (max-width: 1000px){
-	.link-wrapper a{ 
-		font-size: 20px;	
-	}
+	
 	.options{
 		display: none;
 	}
