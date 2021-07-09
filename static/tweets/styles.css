@@ -397,3 +397,40 @@ main {
 .tweet-form-image {
 	width: 70px;
 }
+
+.commands .link-wrapper{
+    padding: 20px 20px;
+    
+}
+
+.link-wrapper a{
+	position: absolute;
+	display: flex;
+	justify-content: start;
+	color: black;
+	text-decoration: none;
+	font-weight: bold; 
+	font-size: 30px;
+	
+}
+.link-wrapper img {
+	height: 30px; 
+	padding-right: 20px; 
+}
+.link-wrapper{
+	margin-bottom: 35px;
+
+}
+.link-wrapper :hover {
+	color:rgb(60, 166, 228);
+	background-color: rgb(193, 233, 240);
+	border-radius: 15px;
+	padding: 10px;
+}
+
+.options{
+    background-color: white;
+    height: 700px;
+    width: 23%;
+    float: left;
+}

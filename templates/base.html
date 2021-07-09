@@ -11,6 +11,29 @@
 </head>
 <body>
 
+  <div class="options">
+     <div class="commands">
+        <div class="link-wrapper">
+
+            <a href="{% url 'home' %}"> <img src="{% static 'images/home.ico' %}" alt=""> Home </a>
+         </div>
+
+         <div class="link-wrapper">
+
+              <a href=""><img src="{% static 'images/bell-icons-16610-Windows.ico' %}" alt=""> Notifications</a>
+         </div>
+
+         <div class="link-wrapper">
+
+             <a href="Profile.html"><img src="{% static 'images/profile-icon-png-910-Windows.ico' %}" alt=""> Profile</a>
+        </div>
+         <div class="link-wrapper">
+
+             <a href=""><img src="{% static 'images/details-icon-1416-Windows.ico' %}" alt=""> More</a>
+        </div>
+     </div>
+   </div>
+
  <div class="content">
 
    {% block content %}  {% endblock %}
