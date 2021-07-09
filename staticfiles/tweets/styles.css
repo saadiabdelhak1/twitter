@@ -436,9 +436,27 @@ main {
 	position: absolute; 
 }
 
+@media (max-width: 1300px){
+	.link-wrapper a{ 
+		font-size: 22px;	
+	}
+	.link-wrapper img {
+		height: 25px; 
+		padding-right: 19px; 
+	}
+}
 @media (max-width: 1200px){
 	.link-wrapper a{ 
-		font-size: 15px;	
+		font-size: 19px;	
+	}
+	.link-wrapper img {
+		height: 20px; 
+		padding-right: 16px; 
+	}
+}
+@media (max-width: 1100px){
+	.link-wrapper a{ 
+		font-size: 17px;	
 	}
 }
 @media (max-width: 1000px){
