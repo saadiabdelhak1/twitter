@@ -439,9 +439,9 @@ main {
 	
 }
 
-@media (max-width: 1200px){
+@media (max-width: 1400px){
 	.options{
-		padding-left: 6%;
+		padding-left: 8%;
 	}
 }
 @media (max-width: 1100px){
