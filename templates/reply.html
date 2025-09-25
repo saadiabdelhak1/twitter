@@ -1,44 +1,120 @@
-
 {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
+<form action="{% url 'replySave' tweet_id %}" method="post" enctype="multipart/form-data" class="h-full">
+    {% csrf_token %}
+    
+    <!-- Header -->
+    <div class="sticky top-0 bg-white bg-opacity-80 backdrop-blur-md border-b border-gray-200 p-4 flex items-center justify-between z-10">
+        <div class="flex items-center space-x-4">
+            <a href="{% url 'post-details' tweet_id %}" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <i class="fas fa-arrow-left text-xl text-gray-700"></i>
+            </a>
+            <h1 class="text-xl font-bold text-gray-900">Reply</h1>
+        </div>
+        <button type="submit" class="bg-twitter hover:bg-twitter-dark text-white font-bold py-2 px-6 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Reply
+        </button>
+    </div>
 
+    <!-- Reply Composer -->
+    <div class="p-4">
+        <div class="flex space-x-3">
+            <!-- Avatar -->
+            <div class="flex-shrink-0">
+                <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-white"></i>
+                </div>
+            </div>
+            
+            <!-- Input Area -->
+            <div class="flex-1 space-y-4">
+                <!-- Name Input -->
+                <div>
+                    <label for="name" class="sr-only">Your name</label>
+                    <input type="text" 
+                           id="name"
+                           name="name" 
+                           placeholder="Your name" 
+                           class="w-full text-lg border-0 border-b-2 border-gray-200 focus:border-twitter focus:outline-none pb-2 placeholder-gray-500 bg-transparent"
+                           required>
+                </div>
+                
+                <!-- Reply Indicator -->
+                <div class="flex items-center text-gray-500 text-sm">
+                    <i class="fas fa-reply mr-2"></i>
+                    <span>Replying to this tweet</span>
+                </div>
+                
+                <!-- Reply Text -->
+                <div>
+                    <label for="text" class="sr-only">Reply text</label>
+                    <textarea id="text"
+                              name="text" 
+                              placeholder="Tweet your reply" 
+                              rows="4" 
+                              class="w-full text-xl resize-none border-0 focus:outline-none placeholder-gray-500 bg-transparent"
+                              maxlength="280"
+                              required></textarea>
+                    <div class="text-right">
+                        <span class="text-sm text-gray-500">
+                            <span id="char-count">0</span>/280
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Additional Actions -->
+                <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                    <div class="flex items-center space-x-4 text-twitter">
+                        <button type="button" class="hover:bg-twitter-light p-2 rounded-full transition-colors">
+                            <i class="fas fa-image text-xl"></i>
+                        </button>
+                        <button type="button" class="hover:bg-twitter-light p-2 rounded-full transition-colors">
+                            <i class="fas fa-poll text-xl"></i>
+                        </button>
+                        <button type="button" class="hover:bg-twitter-light p-2 rounded-full transition-colors">
+                            <i class="fas fa-smile text-xl"></i>
+                        </button>
+                        <button type="button" class="hover:bg-twitter-light p-2 rounded-full transition-colors">
+                            <i class="fas fa-map-marker-alt text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Reply Button (mobile) -->
+                    <button type="submit" class="lg:hidden bg-twitter hover:bg-twitter-dark text-white font-bold py-2 px-6 rounded-full transition-colors">
+                        Reply
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
-<form action="{% url 'replySave' tweet_id %}" method="post" enctype="multipart/form-data">
-	{% csrf_token %}
-	<header>
-	   <a href="{% url 'home' %}"> <img class="header-back" src="{% static 'images/back.svg' %}"></a>
-	   <h1>Home</h1>
-	   <button type="submit" class="header-button">Reply</button>
-    </header>	
-	<div class="reply-form" style="height: 400px; "> 
-		<style>
-			.reply-form{
-				border-bottom: rgb(153, 153, 153) 1px solid;
-			}
-		</style>
+<!-- Bottom padding for mobile navigation -->
+<div class="h-20 lg:h-0"></div>
 
-	  
-		<main>
-		  <div class="tweet-form">
-			<div class="tweet-form-icon">
-			  <img src="{% static 'images/post-default-icon.svg' %}" />
-			</div>
-	
-			<div class="tweet-form-content">
-			  
-			  <input class="tweet-name" type="text" placeholder="Your post name" name="name"/>
-	
-			  <textarea class="tweet-textarea" name="text" placeholder="Whats happenning?" rows="3" cols="100"></textarea>
-	
-			</div>
-		  </div>
-		</main>
-	    
-
-	</div>
-</form> 
-
-
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const textarea = document.getElementById('text');
+    const charCount = document.getElementById('char-count');
+    
+    // Character count
+    textarea.addEventListener('input', function() {
+        const count = this.value.length;
+        charCount.textContent = count;
+        if (count > 280) {
+            charCount.classList.add('text-red-500');
+        } else {
+            charCount.classList.remove('text-red-500');
+        }
+    });
+    
+    // Auto-resize textarea
+    textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
+});
+</script>
 {% endblock %}

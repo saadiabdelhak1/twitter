@@ -1,45 +1,185 @@
 {% load static %}
 
-<!-- <!DOCTYPE html> -->
-<!-- <html lang="en"> -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <!-- <meta charset="UTF-8"> -->
-    <link rel="stylesheet" href="{% static 'tweets/styles.css' %}" />
-    <title>Twitter</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Clone</title>
     <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/favicon.png' %}">
-	<meta name=”viewport” content=”width=device-width, initial-scale=1”>
+    <!-- Modern Custom CSS -->
+    <link rel="stylesheet" href="{% static 'tweets/modern-styles.css' %}" />
+    <!-- Font Awesome CDN alternative - using Unicode symbols if blocked -->
+    <style>
+        /* Font Awesome alternatives using Unicode */
+        .fa-twitter:before { content: "🐦"; }
+        .fa-home:before { content: "🏠"; }
+        .fa-bell:before { content: "🔔"; }
+        .fa-user:before { content: "👤"; }
+        .fa-ellipsis-h:before { content: "⋯"; }
+        .fa-feather-alt:before { content: "✏️"; }
+        .fa-arrow-left:before { content: "←"; }
+        .fa-comment:before { content: "💬"; }
+        .fa-retweet:before { content: "🔄"; }
+        .fa-heart:before { content: "❤️"; }
+        .fa-share:before { content: "📤"; }
+        .fa-image:before { content: "🖼️"; }
+        .fa-poll:before { content: "📊"; }
+        .fa-smile:before { content: "😊"; }
+        .fa-map-marker-alt:before { content: "📍"; }
+        .fa-trash:before { content: "🗑️"; }
+        .fa-reply:before { content: "↩️"; }
+        .fa-comments:before { content: "💭"; }
+        
+        /* Icon styles */
+        .icon {
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+        }
+        
+        /* Alternative if emojis don't work */
+        .fa-alt-twitter:before { content: "T"; }
+        .fa-alt-home:before { content: "H"; }
+        .fa-alt-bell:before { content: "N"; }
+        .fa-alt-user:before { content: "U"; }
+        .fa-alt-more:before { content: "⋯"; }
+    </style>
 </head>
 <body>
-
-  <div class="options">
-     <div class="commands">
-        <div class="link-wrapper">
-
-            <a href="{% url 'home' %}"> <img src="{% static 'images/home.ico' %}" alt=""></a>
-         </div>
-
-         <div class="link-wrapper">
-
-              <a href=""><img src="{% static 'images/bell-icons-16610-Windows.ico' %}" alt=""></a>
-         </div>
-
-         <div class="link-wrapper">
-
-             <a href="Profile.html"><img src="{% static 'images/profile-icon-png-910-Windows.ico' %}" alt=""> </a>
+    <div class="min-h-screen flex">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <span class="icon">🐦</span>
+                <span style="margin-left: 0.5rem;">Twitter Clone</span>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="space-y-2">
+                    <a href="{% url 'home' %}" class="nav-link">
+                        <span class="icon">🏠</span>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="#" class="nav-link">
+                        <span class="icon">🔔</span>
+                        <span>Notifications</span>
+                    </a>
+                    
+                    <a href="#" class="nav-link">
+                        <span class="icon">👤</span>
+                        <span>Profile</span>
+                    </a>
+                    
+                    <a href="#" class="nav-link">
+                        <span class="icon">⋯</span>
+                        <span>More</span>
+                    </a>
+                </div>
+                
+                <a href="{% url 'post-tweet' %}" class="tweet-button">
+                    Tweet
+                </a>
+            </nav>
         </div>
-         <div class="link-wrapper">
 
-             <a href=""><img src="{% static 'images/details-icon-1416-Windows.ico' %}" alt=""></a>
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Mobile header -->
+            <div class="mobile-header">
+                <span class="icon text-2xl" style="color: var(--twitter-blue);">🐦</span>
+                <a href="{% url 'post-tweet' %}" class="tweet-button" style="margin: 0; width: auto; padding: 0.5rem 1rem; font-size: 0.875rem;">
+                    Tweet
+                </a>
+            </div>
+
+            <!-- Page Content -->
+            <main class="content-container">
+                {% block content %}
+                {% endblock %}
+            </main>
         </div>
-     </div>
-   </div>
+    </div>
 
- <div class="content">
+    <!-- Mobile bottom navigation -->
+    <div class="mobile-nav">
+        <a href="{% url 'home' %}" class="mobile-nav-link">
+            <span class="icon">🏠</span>
+        </a>
+        <a href="#" class="mobile-nav-link">
+            <span class="icon">🔔</span>
+        </a>
+        <a href="#" class="mobile-nav-link">
+            <span class="icon">👤</span>
+        </a>
+        <a href="#" class="mobile-nav-link">
+            <span class="icon">⋯</span>
+        </a>
+    </div>
 
-   {% block content %}  {% endblock %}
+    <!-- Floating Tweet Button -->
+    <a href="{% url 'post-tweet' %}" class="fab">
+        <span class="icon">✏️</span>
+    </a>
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-   <script type="text/javascript" href="{% static 'tweets/twitter.js' %}"></script> 
-
+    <script>
+        // Simple character counter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const textareas = document.querySelectorAll('textarea[maxlength]');
+            textareas.forEach(function(textarea) {
+                const maxLength = parseInt(textarea.getAttribute('maxlength'));
+                const counter = document.getElementById('char-count');
+                
+                if (counter) {
+                    textarea.addEventListener('input', function() {
+                        const count = this.value.length;
+                        counter.textContent = count;
+                        if (count > maxLength) {
+                            counter.classList.add('char-counter', 'over-limit');
+                        } else {
+                            counter.classList.remove('over-limit');
+                        }
+                    });
+                }
+                
+                // Auto-resize textarea
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = this.scrollHeight + 'px';
+                });
+            });
+            
+            // Image preview functionality
+            const fileInput = document.getElementById('post_image');
+            if (fileInput) {
+                fileInput.addEventListener('change', function() {
+                    const file = this.files[0];
+                    const preview = document.getElementById('image-preview');
+                    const previewImg = document.getElementById('preview-img');
+                    
+                    if (file && preview && previewImg) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            previewImg.src = e.target.result;
+                            preview.classList.remove('hidden');
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+                
+                const removeBtn = document.getElementById('remove-image');
+                if (removeBtn) {
+                    removeBtn.addEventListener('click', function() {
+                        fileInput.value = '';
+                        document.getElementById('image-preview').classList.add('hidden');
+                        document.getElementById('preview-img').src = '';
+                    });
+                }
+            }
+        });
+    </script>
 </body>
 </html>

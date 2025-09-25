@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<header>
+	<a href="{% url 'home' %}"> <img class="header-back" src="{% static 'images/back.svg' %}"></a>
+    <h1>home</h1>
+	<a href="{% url 'reply' tweet_id %}"> <button type="button" class="header-button">Reply</button>
+	</a>
+</header>
+			
+<body>
+    
+    {% if not all_tweets %}
+			{% else %}
+			{% for tweet in all_tweets %}
+			    {% if not tweet.parent_tweet_id %}
+					<div class="tweet">
+						<div class="tweet-icon">
+						<img src="{% static 'images/post-default-icon.svg' %}" />
+						</div>
+						<div class="tweet-content">
+						<div class="tweet-name-area">
+							<span class="tweet-name">{{tweet.name}}</span>
+							<span class="tweet-created-at">{{tweet.create_at}}</span>
+						</div>
+						<p>
+							{{tweet.text}}
+						</p>
+						{% if tweet.image_path is not None %}
+						<a href="{% url 'post-details' tweet.id %}"><img class="tweet-image" src = "{% static tweet.image_path %}"/></a>
+						{% endif %}		  
+						<div class="tweet-buttons">
+							<a href="{% url 'reply' tweet.id %}"><img class="tweet-reply" src="{% static 'images/comment.svg' %}" /></a>
+							<div class="tweet-reply-count">
+								
+								{{count}}
+							
+							</div>
+							
+						</div>
+						</div>
+					</div>
+				{% endif %}	
+			{% endfor %}
+			{% endif %}
+
+
+    <!-----------------replies------------------->
+
+        {% for tweet in all_replies %}
+        
+            <div class="tweet">
+                <div class="tweet-icon">
+                    <img src="{% static 'images/post-default-icon.svg' %}" />
+                </div>
+                
+                <div class="tweet-content">
+                    <div class="tweet-name-area">
+                        <span class="tweet-name">{{tweet.name}}</span>
+                        <span class="tweet-created-at">{{tweet.create_at}}</span>
+                    </div>
+                    <p>
+                        {{tweet.text}}
+                    </p>
+                    
+                </div>
+            </div>
+        {% endfor %}  
+<body>
+	
+
+{% endblock %}
