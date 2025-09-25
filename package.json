@@ -1,0 +1,28 @@
+{
+  "name": "twitter-clone",
+  "version": "1.0.0",
+  "description": "Modern Twitter clone with React + Node.js",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && npm install",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "seed": "cd backend && node seed.js"
+  },
+  "keywords": [
+    "twitter",
+    "react",
+    "nodejs",
+    "mongodb",
+    "social-media"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
