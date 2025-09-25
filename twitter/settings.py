@@ -22,12 +22,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'wd^u%+lp6z61a*9)qdaw2w2@f)5bhuh&^)o)te11!jjpn70l1n'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'wd^u%+lp6z61a*9)qdaw2w2@f)5bhuh&^)o)te11!jjpn70l1n')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True').lower() in ['true', '1', 'yes']
 
-ALLOWED_HOSTS = ['twitter-abdelhak.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [
+    'twitter-abdelhak.herokuapp.com', 
+    '127.0.0.1', 
+    'localhost',
+    '.vercel.app',
+    '.netlify.app',
+    '.onrender.com'
+]
+
+# Add custom domain from environment variable
+if os.environ.get('ALLOWED_HOST'):
+    ALLOWED_HOSTS.append(os.environ.get('ALLOWED_HOST'))
 
 
 # Application definition
@@ -136,4 +147,23 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Production Security Settings
+if not DEBUG:
+    SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'True').lower() == 'true'
+    SECURE_HSTS_SECONDS = int(os.environ.get('SECURE_HSTS_SECONDS', '3600'))
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = os.environ.get('SECURE_HSTS_INCLUDE_SUBDOMAINS', 'True').lower() == 'true'
+    SECURE_HSTS_PRELOAD = os.environ.get('SECURE_HSTS_PRELOAD', 'True').lower() == 'true'
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    
+    # Proxy SSL header for platforms like Heroku, Vercel
+    if os.environ.get('SECURE_PROXY_SSL_HEADER'):
+        header_name, header_value = os.environ.get('SECURE_PROXY_SSL_HEADER').split(',')
+        SECURE_PROXY_SSL_HEADER = (header_name, header_value)
+
+# Default Auto Field for Django 3.2+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
