@@ -1,55 +1,108 @@
-
 {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
-<header>
-	<h1>home</h1>
-	<a href="{% url 'post-tweet' %}"> <button type="button" class="header-button">Tweet</button>
-	</a>
-</header>
-			<!-- Sample Tweet 1 -->
-        
-			{% if not all_tweets %}
-			<h4>No tweets present.</h4>
-			{% else %}
-			{% for tweet in all_tweets %}
-			    {% if not tweet.parent_tweet_id %}
-					<div class="tweet">
-						<div class="tweet-icon">
-						<img src="{% static 'images/post-default-icon.svg' %}" />
-						</div>
-						<div class="tweet-content">
-						<div class="tweet-name-area">
-							<span class="tweet-name">{{tweet.name}}</span>
-							<span class="tweet-created-at">{{tweet.create_at}}</span>
-						</div>
-						<p>
-							{{tweet.text}}
-						</p>
-						{% if tweet.image_path is not None %}
-						<a href="{% url 'post-details' tweet.id %}"><img class="tweet-image" src = "{% static tweet.image_path %}"/></a>
-						{% endif %}		  
-						<div class="tweet-buttons">
-							<a href="{% url 'reply' tweet.id %}"><img class="tweet-reply" src="{% static 'images/comment.svg' %}" /></a>
-							<div class="tweet-reply-count">
-								
-								{{tweet.count}}
-							
-							</div>
-							
-						</div>
-						</div>
-					</div>
-				{% endif %}	
-			{% endfor %}
-			{% endif %}
+<!-- Header -->
+<div class="page-header">
+    <h1 class="page-title">Home</h1>
+</div>
 
-		<div class="post-tweet-button">
-			<a href="{% url 'post-tweet' %}"> <img src="{% static 'images/post-tweet.svg'%}"></a>
-		</div>
-	</div>
+<!-- Tweet Composer (Mobile/Desktop) -->
+<div class="tweet-composer">
+    <div class="flex space-x-3">
+        <div class="flex-shrink-0">
+            <div class="avatar avatar-blue">
+                <span class="icon">👤</span>
+            </div>
+        </div>
+        <div class="flex-1">
+            <a href="{% url 'post-tweet' %}" class="composer-prompt">
+                What's happening?
+            </a>
+        </div>
+    </div>
+</div>
 
-	
+<!-- Tweet Timeline -->
+<div>
+    {% if not all_tweets %}
+        <div class="empty-state">
+            <div class="icon" style="font-size: 3rem; color: var(--gray-300); margin-bottom: 1rem;">💭</div>
+            <div style="color: var(--gray-500); font-size: 1.125rem; margin-bottom: 0.5rem;">No tweets yet</div>
+            <p style="color: var(--gray-400); margin-bottom: 1rem;">Be the first to share something!</p>
+            <a href="{% url 'post-tweet' %}" class="tweet-button" style="display: inline-block; width: auto;">
+                Write a Tweet
+            </a>
+        </div>
+    {% else %}
+        {% for tweet in all_tweets %}
+            {% if not tweet.parent_tweet_id %}
+                <article class="tweet-card">
+                    <div class="flex space-x-3">
+                        <!-- Avatar -->
+                        <div class="flex-shrink-0">
+                            <div class="avatar avatar-purple">
+                                <span>{{ tweet.name|first|upper }}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Tweet Content -->
+                        <div class="flex-1" style="min-width: 0;">
+                            <!-- Header -->
+                            <div class="tweet-header">
+                                <h4 class="tweet-author truncate">{{ tweet.name }}</h4>
+                                <span style="color: var(--gray-500);">•</span>
+                                <time class="tweet-time">{{ tweet.create_at|timesince }} ago</time>
+                            </div>
+                            
+                            <!-- Tweet Text -->
+                            <p class="tweet-text">{{ tweet.text }}</p>
+                            
+                            <!-- Tweet Image -->
+                            {% if tweet.image_path %}
+                                <div class="mb-3">
+                                    <a href="{% url 'post-details' tweet.id %}">
+                                        <img src="{% static tweet.image_path %}" 
+                                             alt="Tweet image" 
+                                             class="tweet-image"
+                                             loading="lazy">
+                                    </a>
+                                </div>
+                            {% endif %}
+                            
+                            <!-- Actions -->
+                            <div class="tweet-actions">
+                                <!-- Reply -->
+                                <a href="{% url 'reply' tweet.id %}" class="action-button">
+                                    <span class="icon">💬</span>
+                                    <span class="action-count">{{ tweet.count }}</span>
+                                </a>
+                                
+                                <!-- Retweet -->
+                                <button class="action-button green">
+                                    <span class="icon">🔄</span>
+                                    <span class="action-count">0</span>
+                                </button>
+                                
+                                <!-- Like -->
+                                <button class="action-button red">
+                                    <span class="icon">❤️</span>
+                                    <span class="action-count">0</span>
+                                </button>
+                                
+                                <!-- Share -->
+                                <button class="action-button">
+                                    <span class="icon">📤</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
 
+<!-- Bottom padding for mobile navigation -->
+<div class="mobile-bottom-padding"></div>
 {% endblock %}

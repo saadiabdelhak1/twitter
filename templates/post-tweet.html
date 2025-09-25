@@ -2,36 +2,119 @@
 {% load static %}
 
 {% block content %}
-<form action="{% url 'process_form' %}" method="post" enctype="multipart/form-data">
-	{% csrf_token %}
-    <header>
-	  <a href="{% url 'home' %}"> <img class="header-back" src="{% static 'images/back.svg' %}"></a>
-	  <h1>home</h1>
-	  <button type="submit" class="header-button">Post</button>
-    </header>
-		
-	<div class="tweet-form">
-	  
-		<main>
-		  <div class="tweet-form">
-			<div class="tweet-form-icon">
-			  <img src="{% static 'images/post-default-icon.svg' %}" />
-			</div>
-	
-			<div class="tweet-form-content">
-			  
-			  <input class="tweet-name" type="text" placeholder="Your post name" name="name"/>
-	
-			  <textarea class="tweet-textarea" name="text" placeholder="Whats happenning?" rows="7" cols="100"></textarea>
+<form action="{% url 'process_form' %}" method="post" enctype="multipart/form-data" style="height: 100%;">
+    {% csrf_token %}
+    
+    <!-- Header -->
+    <div class="page-header">
+        <div class="header-with-back">
+            <div class="flex items-center space-x-4">
+                <a href="{% url 'home' %}" class="back-button">
+                    <span class="icon text-xl">←</span>
+                </a>
+                <h1 class="page-title">Compose Tweet</h1>
+            </div>
+            <button type="submit" class="tweet-button" style="margin: 0; width: auto; padding: 0.5rem 1.5rem;">
+                Tweet
+            </button>
+        </div>
+    </div>
 
-			  <input type="file" class="images" name="post_image"> 
-	
-			</div>
-		  </div>
-		</main>
-	    
+    <!-- Tweet Composer -->
+    <div class="form-container">
+        <div class="flex space-x-3">
+            <!-- Avatar -->
+            <div class="flex-shrink-0">
+                <div class="avatar avatar-blue">
+                    <span class="icon">👤</span>
+                </div>
+            </div>
+            
+            <!-- Input Area -->
+            <div class="flex-1 space-y-4">
+                <!-- Name Input -->
+                <div class="form-group">
+                    <label for="name" class="form-label">Your name</label>
+                    <input type="text" 
+                           id="name"
+                           name="name" 
+                           placeholder="What's your name?" 
+                           class="form-input"
+                           required>
+                </div>
+                
+                <!-- Tweet Text -->
+                <div class="form-group">
+                    <label for="text" class="form-label">Tweet text</label>
+                    <textarea id="text"
+                              name="text" 
+                              placeholder="What's happening?" 
+                              rows="6" 
+                              class="form-textarea"
+                              maxlength="280"
+                              required></textarea>
+                    <div class="char-counter">
+                        <span id="char-count">0</span>/280
+                    </div>
+                </div>
+                
+                <!-- Image Upload -->
+                <div class="file-upload-area">
+                    <div class="text-center">
+                        <div class="icon" style="font-size: 3rem; color: var(--gray-400); margin-bottom: 0.5rem;">🖼️</div>
+                        <label for="post_image" class="file-label">
+                            Add photos
+                        </label>
+                        <input type="file" 
+                               id="post_image"
+                               name="post_image" 
+                               accept="image/*"
+                               class="file-input">
+                        <p style="font-size: 0.875rem; color: var(--gray-500); margin-top: 0.25rem;">or drag and drop</p>
+                    </div>
+                    <div id="image-preview" class="hidden" style="margin-top: 1rem;">
+                        <img id="preview-img" src="" alt="Preview" style="max-width: 100%; height: auto; border-radius: 0.5rem; border: 1px solid var(--gray-200);">
+                        <button type="button" id="remove-image" style="margin-top: 0.5rem; color: var(--red-500); font-size: 0.875rem; background: none; border: none; cursor: pointer;">
+                            <span class="icon">🗑️</span> Remove image
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Additional Actions -->
+                <div class="flex items-center justify-between" style="padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+                    <div class="flex items-center space-x-4" style="color: var(--twitter-blue);">
+                        <label for="post_image" style="cursor: pointer; padding: 0.5rem; border-radius: 9999px; transition: background-color 0.2s;" class="action-button">
+                            <span class="icon text-xl">🖼️</span>
+                        </label>
+                        <button type="button" class="action-button">
+                            <span class="icon text-xl">📊</span>
+                        </button>
+                        <button type="button" class="action-button">
+                            <span class="icon text-xl">😊</span>
+                        </button>
+                        <button type="button" class="action-button">
+                            <span class="icon text-xl">📍</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Tweet Button (mobile) -->
+                    <button type="submit" class="tweet-button mobile-only" style="display: none;">
+                        Tweet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
-	</div>
-</form> 
+<!-- Bottom padding for mobile navigation -->
+<div class="mobile-bottom-padding"></div>
 
+<style>
+@media (max-width: 1024px) {
+    .mobile-only {
+        display: block !important;
+    }
+}
+</style>
 {% endblock %}

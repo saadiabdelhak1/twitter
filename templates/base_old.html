@@ -1,0 +1,45 @@
+{% load static %}
+
+<!-- <!DOCTYPE html> -->
+<!-- <html lang="en"> -->
+<head>
+    <!-- <meta charset="UTF-8"> -->
+    <link rel="stylesheet" href="{% static 'tweets/styles.css' %}" />
+    <title>Twitter</title>
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/favicon.png' %}">
+	<meta name=”viewport” content=”width=device-width, initial-scale=1”>
+</head>
+<body>
+
+  <div class="options">
+     <div class="commands">
+        <div class="link-wrapper">
+
+            <a href="{% url 'home' %}"> <img src="{% static 'images/home.ico' %}" alt=""></a>
+         </div>
+
+         <div class="link-wrapper">
+
+              <a href=""><img src="{% static 'images/bell-icons-16610-Windows.ico' %}" alt=""></a>
+         </div>
+
+         <div class="link-wrapper">
+
+             <a href="Profile.html"><img src="{% static 'images/profile-icon-png-910-Windows.ico' %}" alt=""> </a>
+        </div>
+         <div class="link-wrapper">
+
+             <a href=""><img src="{% static 'images/details-icon-1416-Windows.ico' %}" alt=""></a>
+        </div>
+     </div>
+   </div>
+
+ <div class="content">
+
+   {% block content %}  {% endblock %}
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   <script type="text/javascript" href="{% static 'tweets/twitter.js' %}"></script> 
+
+</body>
+</html>
